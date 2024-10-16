@@ -9,7 +9,9 @@ class HomeScreen extends StatelessWidget {
     final String name = "flutter";
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Catalog App"),
+      ),
       body: Center(
         child: Container(
           child: Text("Welcome to $days days of $name"),
