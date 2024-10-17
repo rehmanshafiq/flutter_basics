@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/routes/routes.dart';
 
-class Loginscreen extends StatelessWidget {
+class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
+
+  @override
+  State<Loginscreen> createState() => _LoginscreenState();
+}
+
+class _LoginscreenState extends State<Loginscreen> {
+  String name = "";
+  bool changeButton = false;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +26,7 @@ class Loginscreen extends StatelessWidget {
               ),
               SizedBox(height: 30.0,),
               Text(
-                "Welcome to Catalog App!",
+                "Welcome to Catalog App! $name",
                 style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold
@@ -32,8 +40,12 @@ class Loginscreen extends StatelessWidget {
                     TextFormField(
                       decoration: InputDecoration(
                           hintText: "Enter Username",
-                          labelText: "Username"
+                          labelText: "Username",
                       ),
+                      onChanged: (value) {
+                        name = value;
+                        setState(() {});
+                      },
                     ),
                     TextFormField(
                       obscureText: true,
@@ -43,22 +55,47 @@ class Loginscreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 48.0,),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, CatalogAppRoutes.homeRoute);
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          changeButton = true;
+                        });
                       },
-                      child: Text(
-                          "Login",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18
+                      child: AnimatedContainer(
+                        duration: Duration(seconds: 1),
+                        width: changeButton ? 50 : 150,
+                        height: 52,
+                        alignment: Alignment.center,
+                        child: Text(
+                            "Login",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.cyan,
+                          borderRadius: BorderRadius.circular(changeButton ? 20 : 8)
                         ),
                       ),
-                      style: TextButton.styleFrom(
-                        minimumSize: Size(240, 52),
-                        backgroundColor: Colors.blueAccent
-                      ),
                     )
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     Navigator.pushNamed(context, CatalogAppRoutes.homeRoute);
+                    //   },
+                    //   child: Text(
+                    //       "Login",
+                    //     style: TextStyle(
+                    //       color: Colors.white,
+                    //       fontSize: 18
+                    //     ),
+                    //   ),
+                    //   style: TextButton.styleFrom(
+                    //     minimumSize: Size(240, 52),
+                    //     backgroundColor: Colors.blueAccent
+                    //   ),
+                    // )
                   ],
                 ),
               )
